@@ -203,4 +203,4 @@ v0.1 - 10/13/2014 - Initial release
 
 #CRATE MAKER
 
-Want an easier way to create your crate.js options, use the [crate maker tool](http://galavantier.github.io/crate.js)
+Want an easier way to create your crate.js options, use the [crate maker tool](http://galavantier.github.io/crate.js/cratemaker.html)
