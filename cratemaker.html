@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crate Maker</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link type="text/css" href="cratemaker.css" rel="stylesheet" />
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="crate.js" type="text/javascript"></script>
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+    *, *:after, *:before {margin: 0; padding: 0;  -webkit-box-sizing:border-box; -moz-box-sizing:border-box;}
+    body {font-family:"Open Sans", Helvetica, Arial, sans-serif; font-size: 16px;}
+    .content {text-align: center; max-width: 750px; margin: 0 auto;}
+    header {margin: 10px 0 20px;}
+    .title {font-size: 48px; margin-bottom: 10px;}
+    .btn {text-decoration: none; border-radius: 3px; color: #333; padding: 0 10px; font-weight: bold; line-height: 24px; border: 1px solid #d4d4d4; border-bottom-color: #bcbcbc; background-color: #fafafa; cursor: pointer; margin-top: 10px;}
+    .btn:hover {background-color: #4183c4; color: #dfdfdf; border-color: #2c5d8d;}
+    .setting {text-align: left; margin: 5px; padding: 5px; border: 1px solid #d4d4d4; background: #dfdfdf;}
+    label {display: inline-block; min-width: 150px;}
+    input {font-size: 16px;}
+    .req {font-size: 12px; display: inline-block; color: #ff0000;}
+    .note {display: inline-block; font-size: 12px; }
+    input[type="checkbox"] {width: 16px; height: 16px;}
+    .sub-setting {padding-left: 10px; font-size: 14px;}
+    .attach-label {display: inline-block;}
+    .add-more {font-size: 12px; display: inline-block; margin-left: 25px;}
+    .icon {display: inline-block; vertical-align: baseline; width: 22px; height: 22px; border-radius: 1em; border: 1px solid #a0a0a0; cursor: pointer; margin-right: 5px;}
+    .icon--plus {background-color: #eee;}
+    .icon--plus > path {fill: #4183c4; stroke-width: 0.1; stroke-linejoin: round;}
+    .error {border: 2px solid red;}
+
+    /* crate styling */
+    .crate-content {width: 600px; border-radius: 8px; box-shadow: 0px 0px 5px #000; overflow: hidden;}
+    .crate-title {background: #4183c4; color: #d4d4d4; padding: 5px; height: 32px;}
+    .crate-body {background: #fff; color: #191919; padding: 5px;}
+    .crate-footer {background: #4183c4; color: #d4d4d4; padding: 5px;}
+    .crate-close:after {content: ''; width: 22px; height: 22px; background: url("data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2014%2014%22%20style%3D%22enable-background%3Anew%200%200%2014%2014%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpolygon%20fill%3D%22%23FFF%22%20points%3D%2214%2C3%2011%2C0%207%2C4%203%2C0%200%2C3%204%2C7%200%2C11%203%2C14%207%2C10%2011%2C14%2014%2C11%2010%2C7%20%22%2F%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3C%2Fsvg%3E"); background-position: center center; background-repeat: no-repeat; display: block; position: absolute; right: 5px; top: 5px; cursor: pointer;}
+    pre {white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; font-size: 12px; margin: 0 2px; padding: 0px 5px; border: 1px solid #eaeaea; background-color: #f8f8f8; border-radius: 3px;}
+  </style>
+</head>
+<body>
+  <div class="content">
+    <header>
+      <div class="title">
+        Crate.js Object Maker
+      </div>
+      <a class="btn" href="crate.js">
+        View source
+      </a>
+    </header>
+    <form>
+      <div class="setting">
+        <label>Body <div class="req">(required)</div></label>
+        <textarea id="cbody"></textarea>
+        <div class="note">
+          accepts full html markup
+        </div>
+      </div>
+      <div class="setting">
+        <label>Title</label>
+        <textarea id="ctitle"></textarea>
+        <div class="note">
+          accepts full html markup
+        </div>
+      </div>
+      <div class="setting">
+        <label>Footer</label>
+        <textarea id="cfooter"></textarea>
+        <div class="note">
+          accepts full html markup
+        </div>
+      </div>
+      <div class="setting">
+        <label>Parent Element</label>
+        <input type="text" id="cparent" onblur="checkInput(this)"></input>
+        <div class="note">
+          defaults to body if blank, include the selector (eg .class or #id)
+        </div>
+      </div>
+      <div class="setting">
+        <div class="setting-name">
+          Position
+          <div class="note">
+            defaults to the center of the body/element.
+          </div>
+        </div>
+        <label class="sub-setting">Top</label>
+        <input type="text" id="cpositiontop"></input>
+        <div class="note">
+          any css measurement accepted (px, em, %, calc(), etc...)
+        </div><br />
+        <label class="sub-setting">Left</label>
+        <input type="text" id="cpositionleft"></input>
+        <div class="note">
+          any css measurement accepted (px, em, %, calc(), etc...)
+        </div>
+      </div>
+      <div class="setting">
+        <label>Closing Actions</label>
+        <input type="checkbox" id="cclosing" onchange="closingActions();"></input>
+        <div class="note">
+          enable to turn on actions, or enable and leave options blank for no way to close the crate
+        </div><br />
+        <label class="sub-setting">Button</label>
+        <input type="checkbox" id="cbutton" disabled></input>
+        <div class="note">
+          default if closing action is left off
+        </div><br />
+        <label class="sub-setting">Click Inside</label>
+        <input type="checkbox" id="cclickin" disabled></input><br />
+        <label class="sub-setting">Click Outside</label>
+        <input type="checkbox" id="cclickout" disabled></input><br />
+        <label class="sub-setting">Key Codes</label>
+        <input type="text" id="cpresskeys" disabled>
+        <div class="note">
+          <a href="http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes" target="_blank">JavaScript keyCode</a> unicode values. Comma delimited.
+        </div></input>
+      </div>
+      <div class="setting">
+        <label>Overlay color</label>
+        <input type="text" id="coverlay"></input>
+        <div class="note">
+          css color names, hex color code, rgb, or rgba.
+        </div>
+      </div>
+      <div class="setting attach">
+        <div class="setting-name attach-label">
+          Classes to attach
+        </div>
+        <div class="add-more">
+          <a href="#" onclick="addClasses()">
+            <svg class="icon icon--plus" viewBox="0 0 5 5" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 1 h1 v1 h1 v1 h-1 v1 h-1 v-1 h-1 v-1 h1 z" />
+            </svg>Add more classes
+          </a>
+        </div>
+        <div class="to-attach">
+          <label class="sub-setting">Element</label>
+          <input type="text" class="cattachel" onblur="checkInput(this)"></input>
+          <div class="note">
+            include the selector (eg .class or #id)
+          </div><br />
+          <label class="sub-setting">CSS Classname</label>
+          <input type="text" class="cattachcl"></input>
+          <div class="note">
+            add multiple classes to <i>this</i> element by adding a space delimiter
+          </div>
+        </div>
+      </div>
+      <div class="setting">On Open<br />
+        <label class="sub-setting">Delay</label>
+        <input type="number" id="copendelay"></input>
+        <div class="note">
+          time in ms
+        </div><br />
+        <label class="sub-setting">Action</label>
+        <input type="text" id="copenaction"></input>
+        <div class="note">
+          must be a function, no strings
+        </div>
+      </div>
+      <div class="setting">On Close<br />
+        <label class="sub-setting">Delay</label>
+        <input type="number" id="cclosedelay"></input>
+        <div class="note">
+          time in ms
+        </div><br />
+        <label class="sub-setting">Action</label>
+        <input type="text" id="ccloseaction"></input>
+        <div class="note">
+          must be a function, no strings
+        </div>
+      </div>
+      <input type="button" value="Preview" class="btn" onclick="submitController(this);"></input>
+      <input type="button" value="Create Crate Object" class="btn" onclick="submitController(this);"></input>
+    </form>
+  </div>
+  <script>
+  /* Don't judge based on the code below.
+     This was slopily thrown together to make crate.js easier.
+     If it works... it's good. crate.js is meant to be the lean mean modal making machine, not this.
+     */
+  function submitController(el) {
+    var checkValid = checkInputs();
+    if (el.value === 'Preview') {
+      if (checkValid) {
+        previewCrate();
+      } else {
+        return false;
+      }
+    } else {
+      if (checkValid) {
+        createObj();
+      } else {
+        return false;
+      }
+    }
+  }
+  function checkInputs() {
+    var els = document.querySelectorAll('input');
+    var valid = true;
+    for (var i = 0; i < els.length; i++) {
+      if ( (" " + els[i].className + " ").replace(/[\n\t]/g, " ").indexOf(" error ") > -1 ) {
+        valid = false;
+      }
+    }
+    return valid;
+  }
+  function checkInput(el) {
+    // add in more stuff here if you are creating your own tags
+    var validInputs = ['a','abbr','acronym','address','applet','area','article','aside','audio','b','base','basefont','bdi','bdo','big','blockquote','body','br','button','canvas','caption','center','cite','code','col','colgroup','datalist','dd','del','details','dfn','dialog','dir','div','dl','dt','em','embed','fieldset','figcaption','figure','font','footer','form','frame','frameset','header','hgroup','h1','h2','h3','h4','h5','h6','hr','i','iframe','img','input','ins','kbd','keygen','label','legend','li','main','map','mark','menu','menuitem','meter','nav','object','ol','optgroup','option','output','p','param','pre','progress','q','rp','rt','ruby','s','samp','section','select','small','source','span','strike','strong','style','sub','summary','sup','table','tbody','td','textarea','tfoot','th','thead','time','tr','track','tt','u','ul','var','video','wbr'];
+    var valid = false;
+    for (var i = 0; i < validInputs.length; i++) {
+      if (el.value === validInputs[i]) {
+        valid = true;
+      }
+    }
+    if (el.value.substring(0,1) === "." || el.value.substring(0,1) === "#" || el.value === "" || el.value === null) {
+      valid = true;
+    }
+    if (!valid) {
+      el.className = el.className + " error";
+    } else {
+      var cls = 'error';
+      var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+      el.className=el.className.replace(reg,' ');
+    }
+  }
+  function addClasses() {
+    var el = document.querySelector('.to-attach').cloneNode(true);
+    var inputs = el.querySelectorAll('input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = null;
+    }
+    var location = document.querySelector('.attach');
+    location.appendChild(el);
+  }
+  function closingActions() {
+    var close = document.querySelector('#cclosing');
+    var button = document.querySelector('#cbutton');
+    var clickin = document.querySelector('#cclickin');
+    var clickout = document.querySelector('#cclickout');
+    var presskey = document.querySelector('#cpresskeys');
+    if (close.checked) {
+      button.disabled = false;
+      clickin.disabled = false;
+      clickout.disabled = false;
+      presskey.disabled = false;
+    } else {
+      button.disabled = true;
+      button.checked = false;
+      clickin.disabled = true;
+      clickin.checked = false;
+      clickout.disabled = true;
+      clickout.checked = false;
+      presskey.disabled = true;
+      presskey.value = "";
+    }
+  }
+  function createOptions() {
+    var options = {};
+    var cbody = document.querySelector('#cbody');
+    var ctitle = document.querySelector('#ctitle');
+    var cfooter = document.querySelector('#cfooter');
+    var cparent = document.querySelector('#cparent');
+    var cpositiontop = document.querySelector('#cpositiontop');
+    var cpositionleft = document.querySelector('#cpositionleft');
+    var cclosing = document.querySelector('#cclosing');
+    var cbutton = document.querySelector('#cbutton');
+    var cclickin = document.querySelector('#cclickin');
+    var cclickout = document.querySelector('#cclickout');
+    var cpresskeys = document.querySelector('#cpresskeys');
+    var coverlay = document.querySelector('#coverlay');
+    var copendelay = document.querySelector('#copendelay');
+    var copenaction = document.querySelector('#copenaction');
+    var cclosedelay = document.querySelector('#cclosedelay');
+    var ccloseaction = document.querySelector('#ccloseaction');
+    if (cbody.value === "" || cbody.value === null || cbody.value === undefined) {
+      cbody.className = cbody.className + " error";
+      return false;
+    } else {
+      options.setBody = cbody.value;
+      options.setTitle = (ctitle.value) ? ctitle.value : false;
+      if (!options.setTitle) {
+        delete options.setTitle;
+      }
+      options.setFooter = (cfooter.value) ? cfooter.value : false;
+      if (!options.setFooter) {
+        delete options.setFooter;
+      }
+      options.setParent = (cparent.value) ? cparent.value : false;
+      if (!options.setParent) {
+        delete options.setParent;
+      }
+      options.setPosition = [];
+      options.setPosition[0] = (cpositiontop.value !== "") ? cpositiontop.value : null;
+      options.setPosition[1] = (cpositionleft.value !== "") ? cpositionleft.value : null;
+      if (options.setPosition[0] == null && options.setPosition[1] == null) {
+        delete options.setPosition;
+      }
+      options.closeActions = (cclosing.checked) ? true : false;
+      if (!options.closeActions) {
+        delete options.closeActions;
+      } else {
+        options.closeActions = {};
+        options.closeActions.button = (cbutton.checked) ? true : "delete";
+        if (options.closeActions.button === 'delete') {
+          delete options.closeActions.button;
+        }
+        options.closeActions.clickIn = (cclickin.checked) ? true : "delete";
+        if (options.closeActions.clickIn === 'delete') {
+          delete options.closeActions.clickIn;
+        }
+        options.closeActions.clickOut = (cclickout.checked) ? true : "delete";
+        if (options.closeActions.clickOut === 'delete') {
+          delete options.closeActions.clickOut;
+        }
+        var keys = (cpresskeys.value !== "") ? "[" + cpresskeys.value + "]" : false;
+        if (!keys) {
+          delete keys;
+        } else {
+          options.closeActions.pressKeys = JSON.parse(keys);
+        }
+        if (options.closeActions.length >  2) {
+          options.closeActions = options.closeActions.substring(0, options.closeActions.length - 2);
+        }
+      }
+      options.setOverlay = (coverlay.value) ? coverlay.value : false;
+      if (!options.setOverlay) {
+        delete options.setOverlay;
+      }
+      var els = document.querySelectorAll('.cattachel');
+      var cls = document.querySelectorAll('.cattachcl');
+      if (els[0].value.length > 0 && cls[0].value.length > 0) {
+        options.attachClass = {};
+        for (var i = 0; i < els.length; i++) {
+          var thisClass = els[i].value;
+          if (els[i].value !== "" && cls[i].value !== "") {
+            options.attachClass[thisClass] = cls[i].value;
+          }
+        }
+      }
+      options.onOpen = {
+        "delay" : (copendelay.value !== "") ? parseInt(copendelay.value) : false,
+        "action" : (copenaction.value !== "") ? eval("(" + copenaction.value + ")") : false
+      };
+      if (options.onOpen.delay == false && options.onOpen["action"] == false) {
+        delete options.onOpen;
+      }
+      options.onClosing = {
+        "delay" : (cclosedelay.value !== "") ? parseInt(cclosedelay.value) : false,
+        "action" : (ccloseaction.value !== "") ? eval("(" + ccloseaction.value + ")") : false
+      };
+      if (options.onClosing.delay == false && options.onClosing["action"] == false) {
+        delete options.onClosing;
+      }
+      document.querySelector('#cbody').style.border = '';
+      return options;
+    }
+
+
+  }
+  function createObj() {
+    var options = createOptions();
+    if (!options) {
+      document.querySelector('#cbody').className = document.querySelector('#cbody').className + " error"
+      return false;
+    } else {
+      var obj = {};
+      obj.setTitle = 'Here is your crate options object';
+      var body = "";
+      for (prop in options) {
+        if (options.hasOwnProperty(prop)) {
+          if (prop === 'setPosition') {
+            body += "'" + prop + "':['" + options[prop][0] + "','" + options[prop][1] + "'], ";
+          } else if (prop === 'closeActions') {
+            body += "'" + prop + "':{";
+            var count = 0;
+            for (e in options[prop]) {
+              if (options[prop].hasOwnProperty(e)) {
+                if (e === 'pressKeys') {
+                  body += "'" + e + "':[" + options[prop][e] + "], ";
+                } else {
+                  body += "'" + e + "':" + options[prop][e] + ", ";
+                }
+                count++;
+              }
+            }
+            if (count) {
+              body = body.substring(0, body.length - 2);
+            }
+            body += "}, ";
+          } else if (prop === 'onOpen' || prop === 'onClosing') {
+            body += "'" + prop + "':{";
+            var count = 0;
+            for (e in options[prop]) {
+              if (options[prop].hasOwnProperty(e)) {
+                body += "'" + e + "':" + options[prop][e] + ", ";
+                count++;
+              }
+            }
+            if (count) {
+              body = body.substring(0, body.length - 2);
+            }
+            body += "}, ";
+          } else if (prop === 'attachClass') {
+            body += "'" + prop + "':{";
+            var count = 0;
+            for (e in options[prop]) {
+              if (options[prop].hasOwnProperty(e)) {
+                body += "'" + e + "':'" + options[prop][e] + "', ";
+                count++;
+              }
+            }
+            if (count) {
+              body = body.substring(0, body.length - 2);
+            }
+            body += "}, ";
+          } else {
+            body += "'" + prop + "':'" + options[prop] + "', ";
+          }
+        }
+      }
+      body = body.substring(0, body.length - 2);
+      obj.setBody = '<pre>{' + body + '}</pre>';
+      crate.init(obj);
+    }
+  }
+  function previewCrate() {
+    var options = createOptions();
+    if (typeof options.closeActions !== 'undefined') {
+      if (typeof options.closeActions.button == 'undefined' && typeof options.closeActions.clickIn == 'undefined' && typeof options.closeActions.clickOut == 'undefined' && typeof options.closeActions.pressKeys == 'undefined') {
+        options.closeActions = {};
+        options.closeActions.clickOut = true;
+        alert('Since it would break the page otherwise, the clickOut closing action has been turned on');
+      }
+    }
+    if (typeof options.attachClass !== 'undefined') {
+      alert("You added some custom classes.  I had to remove that from the preview since they may not exist on this page, and the style certainly doesn't exist in the style sheet.  They will still populate in the create crate object, but won't be added here.")
+      delete options.attachClass;
+    }
+    crate.init(options);
+  }
+  </script>
+</body>
+</html>
