@@ -159,9 +159,9 @@ You have availability to run these functions at any time after crate.init has ra
 - will toggle the display of the crate
 
 #NEW CSS CLASSES
-```.crate-contain```
+```.crate-contain ```
 
-```.crate-content```
+```.crate-content ```
 
 ```.crate-title``` (child of ```.crate-content```) [if applicable]
 
@@ -203,4 +203,4 @@ v0.1 - 10/13/2014 - Initial release
 
 #CRATE MAKER
 
-Want an easier way to create your crate.js options, use the [crate maker tool](http://cratemaker.html)
+Want an easier way to create your crate.js options, use the [crate maker tool](http://galavantier.github.io/crate.js)
