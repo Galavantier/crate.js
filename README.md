@@ -33,9 +33,7 @@ You have the option to control crate using crate.js' multitude of options. From 
 #INITIALIZATION:
 Create a javascript object with your requested setting parameters.
 
-Call
-
-```crate.init(options);```
+Call ```crate.init(options);```
 
 ##OPTION PARAMETERS:
 
