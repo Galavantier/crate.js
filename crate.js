@@ -88,12 +88,12 @@ var crate = (function() {
       if (api.isSet(ob.setPosition[0]) && api.isSet(ob.setPosition[1])) {//top and left both defined
         api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':api.crateTop,'left':api.crateLeft});
       } else if (api.isSet(ob.setPosition[0]) && !api.isSet(ob.setPosition[1])) {//top defined, no left
-        api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':api.crateTop,'left':'50%','transform':'translate(-50%, 0)'});
+        api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':api.crateTop,'left':'50%','transform':'translate(-50%, 0)','webkitTransform':'translate(-50%,0)'});
       } else if (!api.isSet(ob.setPosition[0]) && api.isSet(ob.setPosition[1])) {//no top, left defined
-        api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':'50%','left':api.crateLeft,'transform':'translate(0, -50%)'});
+        api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':'50%','left':api.crateLeft,'transform':'translate(0, -50%)','webkitTransform':'translate(-50%,0)'});
       }
     } else {//no top, no left
-      api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':'50%','left':'50%','transform':'translate(-50%, -50%)'});
+      api.styleElement(api.crateContent,{'display':'none','z-index':'501','top':'50%','left':'50%','transform':'translate(-50%, -50%)','webkitTransform':'translate(-50%,-50%)'});
     }
 
     //Center of the body or center of an element?
