@@ -178,12 +178,12 @@ crate.js has been tested with:
 - Chrome 38
 - Firefox 32
 - IE 10
-- Safari 5 - There is a bug with the default centering. crate.js uses CSS translate to exact center the element and this isn't recognized in Safari.
+- Safari 5
 
 #####Mac
 - Chrome 38
 - Firefox 32
-- Safari 8 - There is a bug with the default centering. crate.js uses CSS translate to exact center the element and this isn't recognized in Safari.
+- Safari 8
 
 #####Ubuntu
 - Chrome 37
